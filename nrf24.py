@@ -22,10 +22,13 @@ try:
 	import turris_gpio as GPIO
 	GPIO.setmode(GPIO.BCM)
 except:
-	raise ImportError('Neither RPi.GPIO nor Adafruit_BBIO.GPIO nor turris_gpio module found.')
+	raise ImportError('turris_gpio module found.')
 
 # Try to Use spidev (which is faster) and then try Adafruit_BBIO
-import spidev
+try:
+	import spidev
+except:
+	raise ImportError('spidev module not found.')
 
 
 # Use a monotonic clock if available to avoid unwanted side effects from clock
@@ -186,8 +189,8 @@ class NRF24:
 		return data
 
 	def __init__(self, major=None, minor=None, ce_pin=None, irq_pin=None):
-		self.ce_pin = 18 
-		self.irq_pin = 33
+		self.ce_pin = None 
+		self.irq_pin = None
 		self.channel = 76
 		self.data_rate = NRF24.BR_1MBPS
 		self.data_rate_bits = 1000

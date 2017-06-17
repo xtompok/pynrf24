@@ -10,7 +10,7 @@ The actually implementation is improved from the original RF24 code base and has
 For more information regarding how to use this library, check the RF24 documentation: http://maniacbug.github.io/RF24/
 Most of the information there will also be valid here.
 
-Tested on the the BeagleBone Black, Raspberry Pi, and Banana Pi.
+Tested on the the Turris Omnia.
 Should work without problems with NRF24L01 (non +) radios.
 
 Do not forget to check this [great tutorial](http://www.diyembedded.com/tutorials/nrf24l01_0/nrf24l01_tutorial_0.pdf)
@@ -29,8 +29,6 @@ Requirements
 
  * Python 2
  * SPI communication requires spidev:  https://pypi.python.org/pypi/spidev
- * BBB: GPIO access requires Adafruit BBIO library: https://github.com/adafruit/adafruit-beaglebone-io-python
- * BBB: If using GPIO IRQ detection, a custom version of the Adafruit library can be used https://github.com/jpbarraca/adafruit-beaglebone-io-python in order to support a timeout when waiting for the IRQ line.
  
 
 Wiring
@@ -47,6 +45,8 @@ Wiring
 	|2|1|	7: MISO     ->   SPI0.D0 (P9_21)
 	+-+-+	8: IRQ      ->   P9_24 (configurable)
 
+    [Turris Omnia GPIO Pinout](https://www.turris.cz/doc/_media/omnia-pinout.png)
+
 Examples
 --------
 
@@ -55,7 +55,7 @@ Initialization:
 		pipes = [ [0xe7, 0xe7, 0xe7, 0xe7, 0xe7], [0xc2, 0xc2, 0xc2, 0xc2, 0xc2] ]
 
 		radio = NRF24()
-		radio.begin(1,0,"P9_23", "P9_24") #Set CE and IRQ pins
+		radio.begin(0,2,18,33) #Set CE and IRQ pins
 		radio.setRetries(15,15)
 		radio.setPayloadSize(8)
 		radio.setChannel(0x60)
