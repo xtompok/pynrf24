@@ -10,8 +10,8 @@ import time
 
 pipes = [[0xe7, 0xe7, 0xe7, 0xe7, 0xe7], [0xc2, 0xc2, 0xc2, 0xc2, 0xc2]]
 
-radio = NRF24()
-radio.begin(1, 0, "P8_23", "P8_24")
+radio = NRF24(major=0,minor=2)
+radio.begin(1, 0, 18, 33)
 
 radio.setRetries(15,15)
 
